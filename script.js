@@ -1,0 +1,1 @@
+function redirigir_pagina(){};
