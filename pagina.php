@@ -12,13 +12,13 @@
     session_start();
     require("verificarsesion.php");
     require("verificarestado.php");
-    echo `Bienvenido ` . $_SESSION['id_usuario'] . "<br>";
+    echo `Bienvenido ` . $_SESSION['nivel'] . "<br>";
     ?>
 <a href="cerrar.php">Cerrar sesión</a>
 
 
 <a href="#" onclick="abrir_modal()">Redactar</a>
-<a href="redirigir_pagina()">panel administrador</a>
+<a href="javascript:cargarContenido('Uread.php')">panel administrador</a>
 <a href="#">bandeja de entrada</a>
 <a href="#">bandeja de salida</a>
 <a href="#">borradores</a>

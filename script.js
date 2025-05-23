@@ -89,6 +89,8 @@ function guardarEditar(){
 		body:datos})
 		.then(response => response.text())
 		.then(data => document.querySelector("#contenido").innerHTML=data);
+    
 }
+
 
 
