@@ -9,7 +9,7 @@ $stmt->execute();
 
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
-   $row = $result->fetch_assoc(); // ← UNA sola vez
+   $row = $result->fetch_assoc();
     $_SESSION['correo'] = $correo;
     $_SESSION['nivel'] = $row['nivel'];
     $_SESSION['estado'] = $row['estado'];
@@ -18,7 +18,7 @@ if ($result->num_rows > 0) {
 } else {
     echo "Error datos de autenticación incorrectos";
     ?>
-    <meta http-equiv="refresh" content="3;url=login.html">
+    
     <?php
 }
 
