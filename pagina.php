@@ -190,7 +190,7 @@
       <textarea name="descripcion" id="descripcionBorrador" required></textarea>
 
       <br>
-      <button type="button" onclick="guardarBorrador()">Guardar</button>
+      <button type="button" onclick="guardarBorradorUpdate()">Guardar</button>
       <button type="button" onclick="enviarBorrador()">Enviar</button>
       <button type="button" onclick="cerrarModalBorrador()">Cancelar</button>
     </form>
