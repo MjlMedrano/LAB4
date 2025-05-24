@@ -24,7 +24,7 @@ try {
     while ($row = $result->fetch_assoc()) {
         $id_destinatario = $row['id'];
 
-        $insert = $con->prepare("INSERT INTO mensajes (asunto, descripcion, estado, bandeja, id_remitente, id_destinatario) VALUES (?, ?, 'no_leido', 'entrada', ?, ?)");
+        $insert = $con->prepare("INSERT INTO mensajes (asunto, descripcion, estado, id_remitente, id_destinatario) VALUES (?, ?, 'no_leido', ?, ?)");
         $insert->bind_param("ssii", $asunto, $descripcion, $id_remitente, $id_destinatario);
         $insert->execute();
     }

@@ -1,8 +1,3 @@
-function redirigir_pagina(){};
-
-function crear_usuarios(){};
-
-
 function abrir_modal() {
   document.getElementById("modalRedactar").style.display = "block";
 }
@@ -74,23 +69,215 @@ function cargarContenido(abrir) {
 		.then(response => response.text())
 		.then(data => contenedor.innerHTML=data);
 }
-function editarestado(id) {
-    var url = `form_editarestado.php?id=${id}`
-	var contenedor = document.getElementById('contenido');
-	fetch(url)
-		.then(response => response.text())
-		.then(data => contenedor.innerHTML=data);
-}
-function guardarEditar(){
-    var datos = new FormData(document.querySelector('#form-edit'));
 
-    fetch("editestado.php",
-		{method:"POST",
-		body:datos})
-		.then(response => response.text())
-		.then(data => document.querySelector("#contenido").innerHTML=data);
+
+// funcion de read usuarios con ajax
+fetch("Entrada.php")
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById("contenido").innerHTML = data;
+    });
+
+
+function mostrarModalCreate() {
+    const modal = document.getElementById("myModalCreate");
+    document.getElementById('tituloModalCreate').innerHTML = "CREAR USUARIO";
     
+    fetch("UCreateForm.php")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("mensajeModalCreate").innerHTML = data;
+            document.getElementById('btnUltimos').style.display = "none";
+            modal.style.display = "flex";
+        });
 }
 
 
 
+function mostrarModalUpdate(id) {
+    const modal = document.getElementById("myModalUpdate");
+    document.getElementById('tituloModalUpdate').innerHTML = "EDITAR USUARIO";
+    fetch(`UUpdateForm.php?id=${id}`)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("mensajeModalUpdate").innerHTML = data;
+            document.getElementById('btnUltimos').style.display = "none";
+            modal.style.display = "flex";
+        });
+}
+
+
+
+function mostrarModalDelete(id) {
+    const modal = document.getElementById("myModalDelete");
+    document.getElementById('tituloModalDelete').innerHTML = "MENSAJE ELIMINADO";
+
+    fetch(`UDelete.php?id=${id}`)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("mensajeModalDelete").innerHTML = data;
+            document.getElementById('btnUltimos').style.display = "none";
+            modal.style.display = "flex";
+            actualizarListaMensajes();
+        });
+}
+
+
+function MInsertar() {
+  const formulario = document.getElementById("FormCreate");
+  const parametros = new FormData(formulario);
+  const datos = document.getElementById("contenido");
+  const datos2 = document.getElementById("mensajeModalCreate");
+
+  // Limpiar zonas de respuesta antes de enviar
+  datos.innerHTML = "";
+  datos2.innerHTML = "";
+
+  fetch("UCreate.php", {
+    method: "POST",
+    body: parametros
+  })
+  .then(response => response.text())
+  .then(resultado => {
+    datos.innerHTML = resultado;
+    datos2.innerHTML = resultado;
+    actualizarListaMensajes();
+
+    // Cerrar modal y resetear formulario
+    document.getElementById("myModalCreate").style.display = "none";
+    formulario.reset();
+  })
+  .catch(error => {
+    console.error("Error al insertar:", error);
+    datos2.innerHTML = "Error al insertar el usuario.";
+  });
+}
+
+
+function UEditar() {
+    const formulario = document.getElementById("FormUpdate");
+    const parametros = new FormData(formulario);
+    const datos = document.getElementById("mensajeModalUpdate");
+    const id = formulario.id.value;
+
+    datos.innerHTML = "";
+
+    fetch(`UUpdate.php?id=${id}`, {
+        method: "POST",
+        body: parametros
+    })
+    .then(response => response.text())
+    .then(data => {
+        datos.innerHTML = data;
+        actualizarListaMensajes();
+    });
+}
+
+
+function actualizarListaMensajes() {
+    fetch("URead.php")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("contenido").innerHTML = data;
+        });
+}
+
+function cambiarEstado(id) {
+    fetch(`UCambiarEstado.php?id=${id}`)
+        .then(response => response.text())
+        .then(data => {
+            console.log(data); // Para depuración
+            actualizarListaMensajes(); // Recarga la tabla
+        })
+        .catch(error => {
+            console.error("Error al cambiar el estado:", error);
+        });
+}
+
+
+
+
+
+function abrir_modal_mensaje() {
+    // Mostrar el modal
+    document.getElementById('modalMensajeIndividual').style.display = 'flex';
+    // Limpiar campos
+    document.getElementById('mensaje').value = "";
+    document.getElementById('respuestaEnvio').innerHTML = "";
+
+
+
+    // Cargar usuarios al select
+    fetch("UUsuariosSelect.php")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('destinatario').innerHTML = data;
+        })
+        .catch(error => console.error("Error cargando usuarios:", error));
+}
+
+// Enviar el formulario por fetch
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("formMensajeIndividual");
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+
+      fetch("EnviarMensaje.php", {
+        method: "POST",
+        body: formData
+      })
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("respuestaEnvio").innerHTML = data;
+        actualizarListaMensajes(); // opcional
+        // Cerrar el modal después de unos segundos
+  setTimeout(() => {
+    document.getElementById("modalMensajeIndividual").style.display = "none";
+    document.getElementById("formMensajeIndividual").reset();
+  }, 1500);
+      })
+      .catch(error => {
+        console.error("Error enviando mensaje:", error);
+      });
+    });
+  } else {
+    console.warn("Formulario de mensaje individual no encontrado");
+  }
+});
+
+
+
+
+
+function guardarBorrador() {
+  const mensaje = document.getElementById("mensaje").value;
+
+  if (!mensaje.trim()) {
+    alert("El mensaje no puede estar vacío.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("mensaje", mensaje);
+  formData.append("estado", "borrador");
+
+  fetch("GuardarBorrador.php", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById("respuestaEnvio").innerHTML = data;
+
+    setTimeout(() => {
+      document.getElementById("modalMensajeIndividual").style.display = "none";
+      document.getElementById("formMensajeIndividual").reset();
+    }, 1500);
+  })
+  .catch(error => {
+    console.error("Error guardando borrador:", error);
+  });
+}

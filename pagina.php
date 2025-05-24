@@ -14,25 +14,37 @@
     require("verificarestado.php");
     echo `Bienvenido ` . $_SESSION['nivel'] . "<br>";
     ?>
-<a href="cerrar.php">Cerrar sesión</a>
 
 
-<a href="#" onclick="abrir_modal()">Redactar</a>
-<a href="javascript:cargarContenido('Uread.php')">panel administrador</a>
-<a href="#">bandeja de entrada</a>
-<a href="#">bandeja de salida</a>
-<a href="#">borradores</a>
-<div>tabla</div>
-
-        <br>
-        <br>
-        <br>
+<a href="javascript:cargarContenido('Entrada.php')">Bandeja de Entrada</a>
+<a href="javascript:cargarContenido('Salida.php')">Bandeja de Salida</a>
+<a href="javascript:cargarContenido('Borradores.php')">borradores</a>
 
 
 <?php if ($_SESSION['nivel'] ==0) { ?>
-        <a href="javascript:cargarContenido('read.php')">Habilitar suspender</a><br>
-        <?php } ?>
+<a href="javascript:cargarContenido('URead.php')">panel administrador</a>
+<a href="#" onclick="abrir_modal()">Aviso a todos</a>
+ <?php } ?>
 
+
+<a href="cerrar.php">Cerrar sesión</a><br><br>
+
+<br><br>
+<a href="#" onclick="abrir_modal_mensaje()">Redactar</a>
+<br><br>
+
+
+        <br>
+        <br>
+        <br>
+
+
+
+
+
+
+
+        
         <div id="contenido">
 
 
@@ -67,6 +79,77 @@
   <div style="background:white; padding:20px; width:40%; margin:20% auto; text-align:center;">
     <p id="mensaje_resultado"></p>
     <button onclick="cerrar_modal_resultado()">Aceptar</button>
+  </div>
+</div>
+
+
+<!-- MODAL: CREAR USUARIO -->
+<div id="myModalCreate" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal(this)">&times;</span>
+        <h2 id="tituloModalCreate"></h2>
+        <div id="mensajeModalCreate"></div>
+        <input type="hidden" id="idElemento">
+        <button id="btnUltimos" style="display: none;">Últimos</button>
+    </div>
+</div>
+
+<!-- MODAL: EDITAR USUARIO -->
+<div id="myModalUpdate" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal(this)">&times;</span>
+        <h2 id="tituloModalUpdate"></h2>
+        <div id="mensajeModalUpdate"></div>
+        <input type="hidden" id="idElemento">
+        <button id="btnUltimos" style="display: none;">Últimos</button>
+    </div>
+</div>
+
+<!-- MODAL: ELIMINAR USUARIO -->
+<div id="myModalDelete" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal(this)">&times;</span>
+        <h2 id="tituloModalDelete"></h2>
+        <div id="mensajeModalDelete"></div>
+        <input type="hidden" id="idElemento">
+        <button id="btnUltimos" style="display: none;">Últimos</button>
+    </div>
+</div>
+
+
+<script>
+function cerrarModal(boton) {
+    var modal = boton.closest('.modal');
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = "none";
+    }
+}
+</script>
+
+
+<!-- Modal para enviar mensaje individual -->
+<div id="modalMensajeIndividual" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModal(this)">&times;</span>
+    <h2>Enviar mensaje individual</h2>
+    <form id="formMensajeIndividual">
+      <label for="destinatario">Seleccionar usuario:</label><br>
+      <select name="id_destinatario" id="destinatario" required></select><br><br>
+
+      <label for="asunto">Asunto:</label><br>
+      <input type="text" name="asunto" id="asunto" required><br><br>
+
+      <label for="mensaje">Mensaje:</label><br>
+      <textarea name="descripcion" id="mensaje" rows="5" required></textarea><br><br>
+
+      <button type="submit">Enviar</button>
+      <button type="button" onclick="guardarBorrador()">Guardar</button>
+    </form>
+    <div id="respuestaEnvio"></div>
   </div>
 </div>
 
