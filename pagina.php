@@ -147,6 +147,7 @@ window.onclick = function(event) {
       <textarea name="descripcion" id="mensaje" rows="5" required></textarea><br><br>
 
       <button type="submit">Enviar</button>
+      <button type="button" onclick="guardarBorrador()">Guardar</button>
     </form>
     <div id="respuestaEnvio"></div>
   </div>

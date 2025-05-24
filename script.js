@@ -241,3 +241,36 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+
+
+
+
+function guardarBorrador() {
+  const mensaje = document.getElementById("mensaje").value;
+
+  if (!mensaje.trim()) {
+    alert("El mensaje no puede estar vacío.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("mensaje", mensaje);
+  formData.append("estado", "borrador");
+
+  fetch("GuardarBorrador.php", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById("respuestaEnvio").innerHTML = data;
+
+    setTimeout(() => {
+      document.getElementById("modalMensajeIndividual").style.display = "none";
+      document.getElementById("formMensajeIndividual").reset();
+    }, 1500);
+  })
+  .catch(error => {
+    console.error("Error guardando borrador:", error);
+  });
+}
