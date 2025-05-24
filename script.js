@@ -1,8 +1,3 @@
-function redirigir_pagina(){};
-
-function crear_usuarios(){};
-
-
 function abrir_modal() {
   document.getElementById("modalRedactar").style.display = "block";
 }
@@ -129,23 +124,35 @@ function mostrarModalDelete(id) {
 
 
 function MInsertar() {
-    var ajax = new XMLHttpRequest();
-    var formulario = document.getElementById("FormCreate");
-    var parametros = new FormData(formulario);
-    var datos = document.getElementById("content-mensajes");
-    var datos2 = document.getElementById("mensajeModalCreate");
-    datos.innerHTML = "";
+  const formulario = document.getElementById("FormCreate");
+  const parametros = new FormData(formulario);
+  const datos = document.getElementById("contenido");
+  const datos2 = document.getElementById("mensajeModalCreate");
 
-    ajax.open("POST", "UCreate.php", true);
-    ajax.onreadystatechange = function() {
-        if (ajax.readyState == 4 && ajax.status == 200) {
-            datos.innerHTML = ajax.responseText;
-            datos2.innerHTML = ajax.responseText;
-            actualizarListaMensajes();
-        }
-    };
-    ajax.send(parametros);
+  // Limpiar zonas de respuesta antes de enviar
+  datos.innerHTML = "";
+  datos2.innerHTML = "";
+
+  fetch("UCreate.php", {
+    method: "POST",
+    body: parametros
+  })
+  .then(response => response.text())
+  .then(resultado => {
+    datos.innerHTML = resultado;
+    datos2.innerHTML = resultado;
+    actualizarListaMensajes();
+
+    // Cerrar modal y resetear formulario
+    document.getElementById("myModalCreate").style.display = "none";
+    formulario.reset();
+  })
+  .catch(error => {
+    console.error("Error al insertar:", error);
+    datos2.innerHTML = "Error al insertar el usuario.";
+  });
 }
+
 
 function UEditar() {
     const formulario = document.getElementById("FormUpdate");

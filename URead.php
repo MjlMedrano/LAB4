@@ -3,7 +3,8 @@ include('conexion.php');
 $sql = "SELECT id, correo, password, nombre, nivel, estado FROM usuario";
 $resultado = $con->query($sql);
 ?>
-
+<div>
+    <button onclick="mostrarModalCreate()">Crear Usuario</button><br><br>
 <table>
     <tr>
         <td>ID</td>
@@ -28,3 +29,4 @@ $resultado = $con->query($sql);
         </tr>
     <?php } ?>
 </table>
+</div>

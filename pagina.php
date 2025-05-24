@@ -18,7 +18,7 @@
 
 <a href="javascript:cargarContenido('Entrada.php')">Bandeja de Entrada</a>
 <a href="javascript:cargarContenido('Salida.php')">Bandeja de Salida</a>
-<a href="#">borradores</a>
+<a href="javascript:cargarContenido('Borradores.php')">borradores</a>
 
 
 <?php if ($_SESSION['nivel'] ==0) { ?>
@@ -32,7 +32,7 @@
 <br><br>
 <a href="#" onclick="abrir_modal_mensaje()">Redactar</a>
 <br><br>
-<div>tabla</div>
+
 
         <br>
         <br>
