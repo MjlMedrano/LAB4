@@ -22,14 +22,14 @@
 
 <?php if ($_SESSION['nivel'] ==0) { ?>
 <a href="javascript:cargarContenido('URead.php')">panel administrador</a>
-
+<a href="javascript:cargarContenido('revisar_correos.php')">revisar correos de usuarios</a>
  <?php } ?>
 
 
 <a href="cerrar.php">Cerrar sesión</a><br><br>
 
 <br><br>
-<a href="#" onclick="abrir_modal_mensaje()">Redactar</a>
+
 <br><br>
 
 
@@ -157,7 +157,7 @@
 <!-- Modal para ver mensaje en bandeja con boton ver -->
 <div id="modalVerMensaje" class="modal" style="display: none;">
   <div class="modal-content">
-    <span class="close" onclick="cerrarModal(this)">&times;</span>
+
     <h2 id="tituloModalMensaje"></h2>
     <p><strong>Asunto:</strong> <span id="asuntoMensaje"></span></p>
     <p><strong>Descripción:</strong> <span id="descripcionMensaje"></span></p>
@@ -190,7 +190,7 @@
       <textarea name="descripcion" id="descripcionBorrador" required></textarea>
 
       <br>
-      <button type="button" onclick="guardarBorradorUpdate()">Guardar</button>
+      <button type="button" onclick="guardarBorrador()">Guardar</button>
       <button type="button" onclick="enviarBorrador()">Enviar</button>
       <button type="button" onclick="cerrarModalBorrador()">Cancelar</button>
     </form>
