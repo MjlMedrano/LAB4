@@ -32,7 +32,7 @@ $resultado = $stmt->get_result();
             <td><?= $fila['estado'] ?></td>
             <td>
                 <button onclick="abrir_modal_mensaje_ver('salida', <?= $fila['id'] ?>)">Ver</button>
-                <button onclick="eliminarMensaje('BSalida.php',<?= $fila['id'] ?>)">Eliminar</button>
+                <button style=" background-color: #d63d3d;" onclick="eliminarMensaje('BSalida.php',<?= $fila['id'] ?>)">Eliminar</button>
             </td>
         </tr>
     <?php } ?>

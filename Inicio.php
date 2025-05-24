@@ -1,7 +1,8 @@
-<div>
+ <div class="contenedor">
+
 <div class="menu">
     <button onclick="cargarTablas('BEntrada.php')">Bandeja entrada</button>
-    <button onclick="cargarTablas('BSalida.php')">Bandeja salida</button>
+    <button style="border:red 1px solid;" onclick="cargarTablas('BSalida.php')">Bandeja salida</button>
     <button onclick="cargarTablas('BBorradores.php')">Borradores</button>
 </div>
 <div id="tabla">

@@ -1,0 +1,134 @@
+    body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Barra de navegación */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #8ab3db;
+    color: white;
+    padding: 20px 15px;
+    position: fixed;
+    margin-bottom: 10px;
+    width: 95%;
+    
+}
+
+/* Bienvenida a la izquierda */
+.bienvenida {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Links a la derecha */
+.links {
+    display: flex;
+    padding-right: 20px;  
+}
+.navbar a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+   
+}
+/* Estilo de los enlaces */
+.menu {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;    
+}
+
+.menu:hover {
+    color: #f39c12;
+}
+
+.acciones {
+    margin-top: 80px;
+    
+}
+.boton-redactar {
+    background-color: #88bae2;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 16px;
+    border:black 1px solid;
+    margin-left: 80px;
+}
+.contenedor {
+    display: flex;
+    padding: 30px;
+    margin: 10px;
+}
+
+/* Menú lateral */
+.menu {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    
+    
+}
+
+.menu button {
+    margin: 5px 0;
+    padding: 10px 20px;
+    border:black 1px solid;
+    background-color: white;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: left;
+}
+
+
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+th {
+    background-color: #2980b9;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border: 1px solid #ccc;
+}
+table button {
+    background-color: #5dade2;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border:black 1px solid;
+}
+
+.panel button {
+    background-color: #5dade2;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-left: 10px;
+    border:black 1px solid;
+}
+.panel a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    padding: 10px 15px;
+    background-color: #5dade2;
+    border:black 1px solid;
+
+}

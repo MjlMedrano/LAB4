@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="script.js"></script>
+    
+    <link rel="stylesheet" href="css/pagina.css">
 </head>
 <body>
     <?php
@@ -12,31 +14,27 @@
     session_start();
     require("verificarsesion.php");
     require("verificarestado.php");
-    echo `Bienvenido ` . $_SESSION['nivel'] . "<br>";
+    
     ?>
 
 
-<a href="javascript:cargarInicio()">Inicio</a>
+    <div class="navbar">
+        <span class="bienvenida">Bienvenido <?php echo $_SESSION['nombre']; ?></span>
+        <div class="links">
+            <a class="menu" href="javascript:cargarInicio()">Inicio</a>
+            <?php if ($_SESSION['nivel'] == 0) { ?>
+                <a class="menu" href="javascript:cargarContenido('URead.php')">Panel Administrador</a>
+            <?php } ?>
+            <a class="menu" href="cerrar.php">Cerrar sesión</a>
+        </div>
+    </div>
 
+<br>
 
-
-<?php if ($_SESSION['nivel'] ==0) { ?>
-<a href="javascript:cargarContenido('URead.php')">panel administrador</a>
-
- <?php } ?>
-
-
-<a href="cerrar.php">Cerrar sesión</a><br><br>
-
+<div class="acciones">
+    <a href="#" class="boton-redactar" onclick="abrir_modal_mensaje()">Redactar</a>
+</div>
 <br><br>
-<a href="#" onclick="abrir_modal_mensaje()">Redactar</a>
-<br><br>
-
-
-        <br>
-        <br>
-        <br>
-
 
 
 
@@ -44,10 +42,10 @@
 
 
         
-        <div id="contenido">
+<div id="contenido">
 
 
-        </div>
+</div>
 
 
 
