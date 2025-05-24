@@ -1,6 +1,8 @@
 <?php
 include('conexion.php');
-$sql = "SELECT id, correo, password, nombre, nivel, estado FROM usuario";
+session_start();
+$id_usuario=$_SESSION['id_usuario'];
+$sql = "SELECT id, correo, password, nombre, nivel, estado FROM usuario where id!=$id_usuario ";
 $resultado = $con->query($sql);
 ?>
 <div class="panel" style="margin-top: 30px;">

@@ -136,3 +136,218 @@ table button {
 .fila-no-leido {
   background-color: rgba(173, 216, 230, 0.3); /* celeste con opacidad baja */
 }
+
+
+
+
+
+/* === ESTILOS PARA MODALES === */
+
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Scroll si el contenido es largo */
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro semitransparente */
+    padding-top: 60px;
+}
+
+/* Contenido del modal */
+.modal-contenido {
+    background-color: #ffffff;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: desvanecer 0.3s ease-out;
+}
+
+/* Animación de aparición */
+@keyframes desvanecer {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Botón de cerrar */
+.cerrar {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.cerrar:hover,
+.cerrar:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+/* Encabezado del modal */
+.modal h2 {
+    margin-top: 0;
+    color: #2980b9;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    font-size: 22px;
+}
+
+/* Pie del modal (para botones) */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Botones del modal */
+.modal-footer button {
+    background-color: #5dade2;
+    color: white;
+    border: 1px solid black;
+    padding: 10px 18px;
+    font-size: 15px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.modal-footer button:hover {
+    background-color: #2980b9;
+}
+
+/* Asegurar que los formularios dentro del modal heredan los estilos */
+.modal-contenido form {
+    margin: 0;
+}
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content,
+.modal-contenido {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+/* === FORMULARIOS GENERALES === */
+
+form {
+    max-width: 600px;
+    margin: 30px auto;
+    background-color: #ffffff;
+    padding: 20px 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+}
+
+/* Etiquetas */
+form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Campos de entrada */
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="file"],
+form select,
+form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    font-size: 15px;
+    transition: border-color 0.3s ease;
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="password"]:focus,
+form input[type="file"]:focus,
+form select:focus,
+form textarea:focus {
+    border-color: #5dade2;
+    outline: none;
+}
+
+/* Textarea específico */
+form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Botones */
+form button,
+form input[type="submit"],
+form input[type="reset"] {
+    background-color: #5dade2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+    border: 1px solid black;
+}
+
+form button:hover,
+form input[type="submit"]:hover,
+form input[type="reset"]:hover {
+    background-color: #2980b9;
+}
+
+/* Agrupar botones */
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+/* Campos radio/checkbox */
+form .radio-group,
+form .checkbox-group {
+    margin-bottom: 15px;
+}
+
+form .radio-group label,
+form .checkbox-group label {
+    margin-right: 20px;
+    font-weight: normal;
+}
