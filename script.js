@@ -71,13 +71,33 @@ function cargarContenido(abrir) {
 }
 
 
+function cargarTablas(abrir) {
+	var contenedor;
+	contenedor = document.getElementById('tabla');
+	fetch(abrir)
+		.then(response => response.text())
+		.then(data => contenedor.innerHTML=data);
+}
+
+function cargarInicio() {
+  cargarContenido("inicio.php");
+    setTimeout(() => {
+        
+        cargarTablas("BEntrada.php");
+    }, 20); // 0.2 segundos
+}
+
 // funcion de read usuarios con ajax
-fetch("Entrada.php")
+fetch("inicio.php")
     .then(response => response.text())
     .then(data => {
         document.getElementById("contenido").innerHTML = data;
     });
-
+fetch("BEntrada.php")
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById("tabla").innerHTML = data;
+    });
 
 function mostrarModalCreate() {
     const modal = document.getElementById("myModalCreate");
@@ -232,7 +252,8 @@ document.addEventListener("DOMContentLoaded", function () {
       .then(response => response.text())
       .then(data => {
         document.getElementById("respuestaEnvio").innerHTML = data;
-        actualizarListaMensajes(); // opcional
+        cargarTablas("BEntrada.php");
+
         // Cerrar el modal después de unos segundos
   setTimeout(() => {
     document.getElementById("modalMensajeIndividual").style.display = "none";
@@ -254,6 +275,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function guardarBorrador() {
   const mensaje = document.getElementById("mensaje").value;
+  const destinatario = document.getElementById("destinatario").value;
+  const asunto = document.getElementById("asunto").value.trim();
 
   if (!mensaje.trim()) {
     alert("El mensaje no puede estar vacío.");
@@ -263,6 +286,8 @@ function guardarBorrador() {
   const formData = new FormData();
   formData.append("mensaje", mensaje);
   formData.append("estado", "borrador");
+  formData.append("id_destinatario", destinatario);
+  formData.append("asunto", asunto);
 
   fetch("GuardarBorrador.php", {
     method: "POST",
@@ -275,9 +300,159 @@ function guardarBorrador() {
     setTimeout(() => {
       document.getElementById("modalMensajeIndividual").style.display = "none";
       document.getElementById("formMensajeIndividual").reset();
-    }, 1500);
+    }, 2000);
   })
   .catch(error => {
     console.error("Error guardando borrador:", error);
   });
 }
+
+
+
+function eliminarMensaje(abrir,id) {
+   
+
+    fetch(`MEliminar.php?id=${id}`, { method: "GET" })
+        .then(response => response.text())
+        .then(data => {
+            alert(data); // Muestra mensaje de éxito o error
+            cargarTablas(abrir);// Recarga la tabla de mensajes
+        })
+        .catch(error => console.error("Error eliminando mensaje:", error));
+}
+
+function eliminarMensaje(abrir,id) {
+    fetch(`MEliminar.php?id=${id}`, { method: "GET" })
+        .then(() => {
+            cargarTablas(abrir); // Recarga la tabla sin ninguna interrupción
+        })
+        .catch(error => console.error("Error eliminando mensaje:", error));
+}
+
+
+
+function abrir_modal_mensaje_ver(tipo, id) {
+  let archivo = tipo === 'entrada' ? 'MEntrada.php' : 'MSalida.php';
+
+  fetch(`${archivo}?id=${id}`)
+    .then(response => response.json())
+    .then(data => {
+      const modal = document.getElementById('modalVerMensaje');
+      const titulo = tipo === 'entrada'
+        ? `Remitente: ${data.nombre} (${data.correo})`
+        : `Destinatario: ${data.nombre} (${data.correo})`;
+
+      document.getElementById('tituloModalMensaje').innerText = titulo;
+      document.getElementById('asuntoMensaje').innerText = data.asunto;
+      document.getElementById('descripcionMensaje').innerText = data.descripcion;
+      document.getElementById('estadoMensaje').innerText = data.estado;
+
+      modal.style.display = 'flex';
+      if (tipo === 'entrada' && data.estado === 'no_leido') {
+        cambiarEstadoVer(id);
+      }
+    });
+}
+
+
+function cerrarModalPorId(idModal) {
+  const modal = document.getElementById(idModal);
+  if (modal) modal.style.display = "none";
+}
+
+
+
+
+function cambiarEstadoVer(id) {
+  fetch('MCambiarEstado.php', {
+    method: 'POST',
+    body: new URLSearchParams({ id: id })
+  })
+  .then(response => response.text())
+  .then(data => {
+    if (data.trim() === "ok") {
+      cargarTablas('BEntrada.php'); // actualiza la tabla
+      abrir_modal_mensaje_ver('entrada', id); // recarga el modal con estado actualizado
+    }
+  });
+}
+
+
+
+
+function abrir_modal_borrador(id) {
+  fetch('MBorrador.php?id=' + id)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('idBorrador').value = data.id;
+      document.getElementById('asuntoBorrador').value = data.asunto;
+      document.getElementById('descripcionBorrador').value = data.descripcion;
+
+      // Cargar destinatarios disponibles
+      fetch('MUsuarios.php') // este archivo debe devolver un <option> por usuario
+        .then(res => res.text())
+        .then(opciones => {
+          const select = document.getElementById('destinatarioBorrador');
+          select.innerHTML = opciones;
+          select.value = data.id_destinatario; // selecciona el destinatario actual
+        });
+
+      document.getElementById('modalEditarBorrador').style.display = 'flex';
+    });
+}
+
+
+
+
+
+function guardarBorradorUpdate() {
+  enviarFormularioBorrador('borrador');
+}
+
+function enviarBorrador() {
+  enviarFormularioBorrador('no_leido');
+}
+
+function enviarFormularioBorrador(estado) {
+  const form = document.getElementById('formEditarBorrador');
+  const datos = new FormData(form);
+  datos.append('estado', estado);
+
+  fetch('MUpdateBorrador.php', {
+    method: 'POST',
+    body: datos
+  })
+  .then(res => res.text())
+  .then(data => {
+    if (data.trim() === "ok") {
+      cerrarModalBorrador();
+      cargarTablas('BBorradores.php');
+    }
+  });
+}
+
+function cerrarModalBorrador() {
+  document.getElementById('modalEditarBorrador').style.display = 'none';
+  document.getElementById('formEditarBorrador').reset();
+}
+
+function abrir_modal_mensaje_ver_admin(id) {
+  fetch(`MVerAdmin.php?id=${id}`)
+    .then(res => res.json())
+    .then(data => {
+      // Cargar datos en el modal
+      const titulo = `Remitente: ${data.remitente} (${data.correo_remitente})<br>Destinatario: ${data.destinatario} (${data.correo_destinatario})`;
+      document.getElementById('tituloModalMensaje').innerHTML = titulo;
+      document.getElementById('asuntoMensaje').innerText = data.asunto;
+      document.getElementById('descripcionMensaje').innerText = data.descripcion;
+      document.getElementById('estadoMensaje').innerText = data.estado;
+
+      // Mostrar el modal
+      document.getElementById('modalVerMensaje').style.display = 'flex';
+    })
+    .catch(error => {
+      console.error('Error al cargar el mensaje:', error);
+    });
+}
+
+
