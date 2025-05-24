@@ -5,6 +5,7 @@ $resultado = $con->query($sql);
 ?>
 <div>
     <button onclick="mostrarModalCreate()">Crear Usuario</button><br><br>
+    <button onclick="abrir_modal()">Enviar a todos</button><br><br>
 <table>
     <tr>
         <td>ID</td>

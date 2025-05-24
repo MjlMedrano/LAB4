@@ -16,14 +16,13 @@
     ?>
 
 
-<a href="javascript:cargarContenido('Entrada.php')">Bandeja de Entrada</a>
-<a href="javascript:cargarContenido('Salida.php')">Bandeja de Salida</a>
-<a href="javascript:cargarContenido('Borradores.php')">borradores</a>
+<a href="javascript:cargarInicio()">Inicio</a>
+
 
 
 <?php if ($_SESSION['nivel'] ==0) { ?>
 <a href="javascript:cargarContenido('URead.php')">panel administrador</a>
-<a href="#" onclick="abrir_modal()">Aviso a todos</a>
+
  <?php } ?>
 
 
@@ -86,55 +85,50 @@
 <!-- MODAL: CREAR USUARIO -->
 <div id="myModalCreate" class="modal" style="display: none;">
     <div class="modal-content">
-        <span class="close" onclick="cerrarModal(this)">&times;</span>
         <h2 id="tituloModalCreate"></h2>
         <div id="mensajeModalCreate"></div>
         <input type="hidden" id="idElemento">
         <button id="btnUltimos" style="display: none;">Últimos</button>
+        <div style="text-align: right; margin-top: 10px;">
+      <button onclick="cerrarModalPorId('myModalCreate')">Cerrar</button>
+    </div>
     </div>
 </div>
 
 <!-- MODAL: EDITAR USUARIO -->
 <div id="myModalUpdate" class="modal" style="display: none;">
     <div class="modal-content">
-        <span class="close" onclick="cerrarModal(this)">&times;</span>
+        
         <h2 id="tituloModalUpdate"></h2>
         <div id="mensajeModalUpdate"></div>
         <input type="hidden" id="idElemento">
         <button id="btnUltimos" style="display: none;">Últimos</button>
+        <div style="text-align: right; margin-top: 10px;">
+      <button onclick="cerrarModalPorId('myModalUpdate')">Cerrar</button>
+    </div>
     </div>
 </div>
 
 <!-- MODAL: ELIMINAR USUARIO -->
 <div id="myModalDelete" class="modal" style="display: none;">
     <div class="modal-content">
-        <span class="close" onclick="cerrarModal(this)">&times;</span>
         <h2 id="tituloModalDelete"></h2>
         <div id="mensajeModalDelete"></div>
         <input type="hidden" id="idElemento">
         <button id="btnUltimos" style="display: none;">Últimos</button>
+        <div style="text-align: right; margin-top: 10px;">
+      <button onclick="cerrarModalPorId('myModalDelete')">Cerrar</button>
+    </div>
     </div>
 </div>
 
 
-<script>
-function cerrarModal(boton) {
-    var modal = boton.closest('.modal');
-    modal.style.display = "none";
-}
 
-window.onclick = function(event) {
-    if (event.target.classList.contains('modal')) {
-        event.target.style.display = "none";
-    }
-}
-</script>
 
 
 <!-- Modal para enviar mensaje individual -->
 <div id="modalMensajeIndividual" class="modal" style="display:none;">
   <div class="modal-content">
-    <span class="close" onclick="cerrarModal(this)">&times;</span>
     <h2>Enviar mensaje individual</h2>
     <form id="formMensajeIndividual">
       <label for="destinatario">Seleccionar usuario:</label><br>
@@ -148,8 +142,58 @@ window.onclick = function(event) {
 
       <button type="submit">Enviar</button>
       <button type="button" onclick="guardarBorrador()">Guardar</button>
+      <div style="text-align: right; margin-top: 10px;">
+      <button type="button" formnovalidate onclick="cerrarModalPorId('modalMensajeIndividual')">Cerrar</button>
+    </div>
     </form>
     <div id="respuestaEnvio"></div>
+  </div>
+</div>
+
+
+
+
+
+<!-- Modal para ver mensaje en bandeja con boton ver -->
+<div id="modalVerMensaje" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModal(this)">&times;</span>
+    <h2 id="tituloModalMensaje"></h2>
+    <p><strong>Asunto:</strong> <span id="asuntoMensaje"></span></p>
+    <p><strong>Descripción:</strong> <span id="descripcionMensaje"></span></p>
+    <p><strong>Estado:</strong> <span id="estadoMensaje"></span></p>
+    
+    <!-- Botón cerrar al final -->
+    <div style="text-align: right; margin-top: 10px;">
+      <button onclick="cerrarModalPorId('modalVerMensaje')">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal para ver mensaje en bandeja de borrador -->
+
+<div id="modalEditarBorrador" style="display: none;" class="modal">
+  <div class="modal-contenido">
+    <h2>Editar Borrador</h2>
+    <form id="formEditarBorrador">
+      <input type="hidden" name="id" id="idBorrador">
+
+      <label for="destinatarioBorrador">Destinatario:</label>
+      <select name="id_destinatario" id="destinatarioBorrador" required></select>
+
+      <label for="asuntoBorrador">Asunto:</label>
+      <input type="text" name="asunto" id="asuntoBorrador" required>
+
+      <label for="descripcionBorrador">Descripción:</label>
+      <textarea name="descripcion" id="descripcionBorrador" required></textarea>
+
+      <br>
+      <button type="button" onclick="guardarBorrador()">Guardar</button>
+      <button type="button" onclick="enviarBorrador()">Enviar</button>
+      <button type="button" onclick="cerrarModalBorrador()">Cancelar</button>
+    </form>
   </div>
 </div>
 
