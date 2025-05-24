@@ -14,11 +14,11 @@
     session_start();
     require("verificarsesion.php");
     require("verificarestado.php");
-    
+
     ?>
 
 
-    <div class="navbar">
+<    <div class="navbar">
         <span class="bienvenida">Bienvenido <?php echo $_SESSION['nombre']; ?></span>
         <div class="links">
             <a class="menu" href="javascript:cargarInicio()">Inicio</a>
@@ -31,9 +31,6 @@
 
 <br>
 
-<div class="acciones">
-    <a href="#" class="boton-redactar" onclick="abrir_modal_mensaje()">Redactar</a>
-</div>
 <br><br>
 
 
@@ -155,7 +152,7 @@
 <!-- Modal para ver mensaje en bandeja con boton ver -->
 <div id="modalVerMensaje" class="modal" style="display: none;">
   <div class="modal-content">
-    <span class="close" onclick="cerrarModal(this)">&times;</span>
+
     <h2 id="tituloModalMensaje"></h2>
     <p><strong>Asunto:</strong> <span id="asuntoMensaje"></span></p>
     <p><strong>Descripción:</strong> <span id="descripcionMensaje"></span></p>

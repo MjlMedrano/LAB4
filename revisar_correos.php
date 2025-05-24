@@ -10,11 +10,11 @@ $sql = "SELECT m.id,
                u2.nombre AS destinatario, 
                m.asunto, 
                m.descripcion, 
-               m.estado, 
-               m.bandeja 
+               m.estado
         FROM mensajes m
         JOIN usuario u1 ON m.id_remitente = u1.id
         JOIN usuario u2 ON m.id_destinatario = u2.id
+        WHERE m.estado != 'borrador'
         ORDER BY m.id DESC";
 
 $resultado = $con->query($sql);
@@ -30,7 +30,7 @@ $resultado = $con->query($sql);
             <th>Asunto</th>
             <th>Descripción</th>
             <th>Estado</th>
-            <th>Bandeja</th>
+            <th>Operación</th>
         </tr>
     </thead>
     <tbody>
@@ -42,7 +42,7 @@ $resultado = $con->query($sql);
                 <td><?php echo $row['asunto']; ?></td>
                 <td><?php echo $row['descripcion']; ?></td>
                 <td><?php echo $row['estado']; ?></td>
-                <td><?php echo $row['bandeja']; ?></td>
+                <td>  <button onclick="abrir_modal_mensaje_ver_admin( <?= $row['id'] ?>)">Ver</button></td>
             </tr>
         <?php } ?>
     </tbody>

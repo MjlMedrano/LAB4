@@ -252,7 +252,8 @@ document.addEventListener("DOMContentLoaded", function () {
       .then(response => response.text())
       .then(data => {
         document.getElementById("respuestaEnvio").innerHTML = data;
-        actualizarListaMensajes(); // opcional
+        cargarTablas("BEntrada.php");
+
         // Cerrar el modal después de unos segundos
   setTimeout(() => {
     document.getElementById("modalMensajeIndividual").style.display = "none";
@@ -404,7 +405,7 @@ function abrir_modal_borrador(id) {
 
 
 
-function guardarBorrador() {
+function guardarBorradorUpdate() {
   enviarFormularioBorrador('borrador');
 }
 
@@ -435,5 +436,23 @@ function cerrarModalBorrador() {
   document.getElementById('formEditarBorrador').reset();
 }
 
+function abrir_modal_mensaje_ver_admin(id) {
+  fetch(`MVerAdmin.php?id=${id}`)
+    .then(res => res.json())
+    .then(data => {
+      // Cargar datos en el modal
+      const titulo = `Remitente: ${data.remitente} (${data.correo_remitente})<br>Destinatario: ${data.destinatario} (${data.correo_destinatario})`;
+      document.getElementById('tituloModalMensaje').innerHTML = titulo;
+      document.getElementById('asuntoMensaje').innerText = data.asunto;
+      document.getElementById('descripcionMensaje').innerText = data.descripcion;
+      document.getElementById('estadoMensaje').innerText = data.estado;
+
+      // Mostrar el modal
+      document.getElementById('modalVerMensaje').style.display = 'flex';
+    })
+    .catch(error => {
+      console.error('Error al cargar el mensaje:', error);
+    });
+}
 
 
