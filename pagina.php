@@ -18,12 +18,13 @@
     ?>
 
 
-<    <div class="navbar">
+   <div class="navbar">
         <span class="bienvenida">Bienvenido <?php echo $_SESSION['nombre']; ?></span>
         <div class="links">
             <a class="menu" href="javascript:cargarInicio()">Inicio</a>
             <?php if ($_SESSION['nivel'] == 0) { ?>
                 <a class="menu" href="javascript:cargarContenido('URead.php')">Panel Administrador</a>
+                <a class="menu" href="javascript:cargarContenido('revisar_correos.php')">revisar correos de usuarios</a>
             <?php } ?>
             <a class="menu" href="cerrar.php">Cerrar sesión</a>
         </div>
