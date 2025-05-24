@@ -22,7 +22,7 @@ $resultado = $stmt->get_result();
         <th>Operación</th>
     </tr>
     <?php while ($fila = $resultado->fetch_assoc()) { ?>
-        <tr>
+        <tr id="fila-<?= $fila['id'] ?>" class="<?= $fila['estado'] === 'no_leido' ? 'fila-no-leido' : '' ?>">
             <td><?= htmlspecialchars($fila['correo']) ?></td>
             <td><?= htmlspecialchars($fila['asunto']) ?></td>
             <td><?= $fila['estado'] ?></td>

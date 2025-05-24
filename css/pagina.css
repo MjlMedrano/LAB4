@@ -132,3 +132,7 @@ table button {
     border:black 1px solid;
 
 }
+
+.fila-no-leido {
+  background-color: rgba(173, 216, 230, 0.3); /* celeste con opacidad baja */
+}
