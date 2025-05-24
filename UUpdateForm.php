@@ -26,7 +26,10 @@ $fila = $resultado->fetch_assoc();
         <label>Contraseña</label>
         <input type="password" name="password" value="<?php echo $fila['password']; ?>"><br>
         <label>Nivel</label>
-        <input type="number" name="nivel" value="<?php echo $fila['nivel']; ?>"><br>
+<select name="nivel">
+    <option value="0" <?php if ($fila['nivel'] == 0) echo 'selected'; ?>>Administrador</option>
+    <option value="1" <?php if ($fila['nivel'] == 1) echo 'selected'; ?>>Usuario</option>
+</select><br>
         <label>Estado</label>
         <select name="estado">
             <option value="1" <?php if($fila['estado'] == 1) echo 'selected'; ?>>Activo</option>
