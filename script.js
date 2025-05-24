@@ -404,7 +404,7 @@ function abrir_modal_borrador(id) {
 
 
 
-function guardarBorrador() {
+function guardarBorradorUpdate() {
   enviarFormularioBorrador('borrador');
 }
 
