@@ -206,7 +206,7 @@ function cambiarEstado(id) {
     fetch(`UCambiarEstado.php?id=${id}`)
         .then(response => response.text())
         .then(data => {
-            console.log(data); // Para depuración
+            console.log(data); 
             actualizarListaMensajes(); // Recarga la tabla
         })
         .catch(error => {
