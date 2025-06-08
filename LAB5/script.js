@@ -118,4 +118,81 @@ function UEditar() {
     });
 }
 
+/*funciones de la CRUD HABITACIONES */
 
+document.querySelector(".close").addEventListener("click", function() {
+    document.getElementById("myModal").style.display = "none";
+});
+
+function mostrarTabla() {
+   var tabla = document.getElementById("tabla");
+    fetch("HRead.php")
+        .then((response) => response.text())
+	    .then((data) => {
+            tabla.innerHTML = data;
+        });
+}
+
+function formCrear() {
+   fetch("Hform.html")
+       .then((response) => response.text())
+       .then((data) => {
+            document.querySelector("#titulo-modal").innerHTML = "Crear"
+		    document.querySelector("#contenido-modal").innerHTML = data
+		    document.getElementById("myModal").style.display = "block";
+       });
+}
+
+function Hinsertar(){
+    var form = document.getElementById("formulario");
+    var formData = new FormData(form);
+    fetch("HCreate.php", {
+        method: "POST",
+        body: formData
+    })
+    .then((response) => response.text())
+    .then((data) => {
+        mostrarTabla();
+    });
+}
+
+function confirmarEliminacion(id) {
+    document.querySelector("#titulo-modal").innerHTML = "Confirmar eliminación";
+    document.querySelector("#contenido-modal").innerHTML = `
+        <p>¿Estás seguro de que quieres eliminar este elemento?</p>
+        <button onclick="eliminar(${id})">Sí, eliminar</button>
+        <button onclick="cerrarModal()">Cancelar</button>
+    `;
+    document.getElementById("myModal").style.display = "block";
+}
+
+function eliminar(id) {
+    fetch("HDelete.php?id=" + id)
+        .then((response) => response.text())
+        .then((data) => {
+            mostrarTabla();
+        });
+}
+
+function editar(id) {
+    fetch("HformActualizar.php?id=" + id)
+       .then((response) => response.text())
+       .then((data) => {
+           document.querySelector("#titulo-modal").innerHTML = "Editar"
+		   document.querySelector("#contenido-modal").innerHTML = data
+		   document.getElementById("myModal").style.display = "block";
+       });
+}
+
+function Hactualizar() {
+    var form = document.getElementById("formulario");
+    var formData = new FormData(form);
+    fetch("HUpdate.php", {
+        method: "POST",
+        body: formData
+    })
+    .then((response) => response.text())
+    .then((data) => {
+        mostrarTabla();
+    });
+}
