@@ -196,3 +196,96 @@ function Hactualizar() {
         mostrarTabla();
     });
 }
+
+// --------------------------------------------------------------------
+
+function abrirModal(contenido) {
+    fetch(contenido)
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById("modal-global").style.display = "block";
+            document.getElementById("modal-body").innerHTML = html;
+        });
+}
+
+function cerrarModal(event, id) {
+    event.preventDefault(); 
+    document.getElementById(id).style.display = "none"; 
+}
+
+function abrirModalReserva(idHabitacion) {
+    fetch('modal_reservar.php?id=' + idHabitacion)
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById("modal-global").style.display = "block";
+            document.getElementById("modal-body").innerHTML = html;
+        });
+}
+
+
+
+
+
+function buscarHabitaciones(event) {
+    event.preventDefault(); // Evita el envío tradicional del formulario
+
+    const tipo = document.getElementById("tipo").value;
+
+    // Validación rápida
+    if (!tipo) {
+        alert("Por favor, selecciona un tipo de habitación.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("tipo", tipo);
+
+    fetch("buscar.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.text())
+    .then(html => {
+        document.getElementById("contenido").innerHTML = html;
+    })
+    .catch(err => {
+        console.error("Error al buscar habitaciones:", err);
+        document.getElementById("contenido").innerHTML = "<p>Ocurrió un error al buscar habitaciones.</p>";
+    });
+}
+
+
+
+
+function confirmarReserva(event, idHabitacion) {
+    event.preventDefault();
+
+    const form = event.target;
+    const fechaIngreso = form.fecha_ingreso.value;
+    const fechaSalida = form.fecha_salida.value;
+
+    const datos = new FormData();
+    datos.append("id_habitacion", idHabitacion);
+    datos.append("fecha_ingreso", fechaIngreso);
+    datos.append("fecha_salida", fechaSalida);
+
+    fetch("guardar_reserva.php", {
+        method: "POST",
+        body: datos
+    })
+    .then(res => res.text())
+    .then(html => {
+        // Mostrar mensaje en el mismo modal
+        document.getElementById("modal-body").innerHTML = html;
+    })
+    .catch(error => {
+        console.error("Error al reservar:", error);
+        document.getElementById("modal-body").innerHTML = `
+            <div style="text-align: center; color: red;">
+                <h3>Error</h3>
+                <p>No se pudo contactar al servidor.</p>
+                <button onclick="cerrarModal(event, 'modal-global')">Cerrar</button>
+            </div>`;
+    });
+}
+

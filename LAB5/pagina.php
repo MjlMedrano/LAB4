@@ -12,33 +12,59 @@
     <?php
     include("conexion.php");
     session_start();
-    require("verificarsesion.php");
-    require("verificarnivel.php");
+
 
     ?>
 
 
-   <div class="navbar">
-        <div class="links">
+  <div class="navbar" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; gap: 20px; flex-wrap: wrap;">
 
-            <?php if ($_SESSION['nivel'] == 0) { ?>
-                <a class="menu" href="javascript:cargarContenido('Uread.php')">Panel Administrador</a>
+    <!-- Logo o nombre del sitio -->
+    <div class="navbar-logo" style="flex: 1;">
+        <h2><a href="pagina.php" style="text-decoration: none; color: black;">Mi Hotel</a></h2>
+    </div>
 
-            <?php } ?>
-            <a class="menu" href="cerrar.php">Cerrar sesión</a>
+    <!-- Barra de búsqueda de habitaciones -->
+    <div class="navbar-busqueda" style="flex: 2;">
+        <form onsubmit="buscarHabitaciones(event)" style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: center;">
+            <select name="tipo" id="tipo" required style="padding: 5px;">
+                <option value="">Tipo</option>
+                <option value="simple">Simple</option>
+                <option value="doble">Doble</option>
+                <option value="suite">Suite</option>
+            </select>
+            <button type="submit" style="padding: 6px 15px;">Buscar</button>
+        </form>
+    </div>
+
+    <!-- Links y sesion -->
+    <div class="navbar-links" style="flex: 1; display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
+
+        <!-- Botones de navegación -->
+        <div class="navbar-botones" style="display: flex; gap: 10px;">
+            <a href="pagina.php">Inicio</a>
+            <?php if (isset($_SESSION['id_usuario']) && $_SESSION['nivel'] == 0): ?>
+                <a class="menu" href="javascript:cargarContenido('Uread.php')">Gestion Usuarios</a>
+                <a class="menu" href="javascript:cargarContenido('Habitaciones.html')">Gestion Habitaciones</a>
+            <?php endif; ?>
+        </div>
+
+        <!-- Sesion -->
+        <div class="navbar-sesion">
+            <?php if (isset($_SESSION['id_usuario'])): ?>
+                <a class="menu" href="cerrar.php">Cerrar sesión</a>
+                <!-- Imagen de perfil futura -->
+                 
+            <?php else: ?>
+                <a href="javascript:abrirModal('login.html')">Iniciar sesión</a>
+            <?php endif; ?>
         </div>
     </div>
 
-<br>
+</div>
 
 <br><br>
-
-
-
-
-
-
-        
+     
 <div id="contenido">
 
 
@@ -192,6 +218,15 @@
   </div>
 </div>
 
+
+
+<!-- Modal para el login -->
+
+<div id="modal-global" class="modal" style="display:none;">
+    <div class="modal-content" id="modal-body">
+
+    </div>
+</div>
 
 
 
