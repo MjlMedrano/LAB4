@@ -117,3 +117,132 @@ table th {
 table tr:hover {
   background-color: #fafafa;
 }
+
+/* Estilos mejorados para centrado absoluto (núcleo 3x3) */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 450px;
+    
+    /* Centrado absoluto */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    /* Animación suave al aparecer */
+    animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Estilos específicos para el modal de reserva */
+#modal-reserva .modal-content {
+    max-width: 420px;
+}
+
+#modal-reserva h2 {
+    margin: 0 0 20px 0;
+    color: #2d3748;
+    text-align: center;
+    font-size: 1.5rem;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+#modal-reserva .form-group {
+    margin-bottom: 15px;
+}
+
+#modal-reserva label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #4a5568;
+}
+
+#modal-reserva input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+}
+
+#modal-reserva input[type="date"]:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+}
+
+.detalles-habitacion {
+    background-color: #f8fafc;
+    padding: 15px;
+    border-radius: 6px;
+    margin: 20px 0;
+    border-left: 4px solid #4299e1;
+}
+
+.detalles-habitacion p {
+    margin: 8px 0;
+    color: #4a5568;
+}
+
+.botones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+#modal-reserva button {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#modal-reserva button[type="button"] {
+    background-color: #e2e8f0;
+    color: #4a5568;
+    border: none;
+}
+
+#modal-reserva button[type="button"]:hover {
+    background-color: #cbd5e0;
+}
+
+#modal-reserva button[type="submit"] {
+    background-color: #4299e1;
+    color: white;
+    border: none;
+}
+
+#modal-reserva button[type="submit"]:hover {
+    background-color: #3182ce;
+}
