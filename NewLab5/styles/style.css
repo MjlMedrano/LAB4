@@ -465,3 +465,12 @@ table tr:hover {
     padding-bottom: 10px;
     border-bottom: 2px solid #e5e7eb;
 }
+
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 20px;
+    justify-items: center;
+    padding: 20px;
+}

@@ -27,40 +27,59 @@ if (isset($_POST['tipo'])) {
 
     if ($resultado->num_rows > 0) {
         session_start();
-       while ($fila = $resultado->fetch_assoc()) {
-    echo '
-    <div class="habitacion" style="border: 1px solid #ccc; margin: 15px; padding: 10px; border-radius: 8px; display: flex; flex-direction: column; max-width: 500px;">
-        <div class="habitacion-imagen" style="text-align: center;">
-            <img src="imagenes/' . htmlspecialchars($fila['imagen']) . '" alt="Habitación" style="max-width: 100%; height: auto; border-radius: 8px;">
-        </div>
+       echo '<div class="features-grid">';
 
-        <div class="habitacion-descripcion" style="padding: 10px 0;">
-            <p>' . htmlspecialchars($fila['descripcion']) . '</p>
-        </div>
+while ($fila = $resultado->fetch_assoc()) {
+    $tipo = strtolower($fila['tipo_nombre']);
+    $precio = '';
 
-        <div class="habitacion-detalle" style="display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
-            <div class="habitacion-info" style="flex: 1;">
-                <p><strong>Tipo:</strong> ' . htmlspecialchars($fila['tipo_nombre']) . '</p>
-                <p><strong>Piso:</strong> ' . htmlspecialchars($fila['piso']) . '</p>
-                <p><strong>Número:</strong> ' . htmlspecialchars($fila['numero']) . '</p>
-                <p><strong>Superficie:</strong> ' . htmlspecialchars($fila['superficie']) . ' m²</p>
-                <p><strong>N° Camas:</strong> ' . htmlspecialchars($fila['nrocamas']) . '</p>
-            </div>
-
-            <div class="habitacion-reservar" style="display: flex; align-items: center;">';
-            
-            
-            if (isset($_SESSION['id_usuario'])) {
-                echo '<button onclick="abrirModalReserva(' . $fila['id_habitacion'] . ')" style="padding: 10px 15px;">Reservar</button>';
-            } else {
-                echo '<button onclick="abrirModal(\'login.html\')" style="padding: 10px 15px;">Iniciar sesión para reservar</button>';
-            }
+    if ($tipo === 'simple') {
+        $precio = '$50 por noche';
+    } elseif ($tipo === 'doble') {
+        $precio = '$80 por noche';
+    } elseif ($tipo === 'suite') {
+        $precio = '$150 por noche';
+    } else {
+        $precio = 'Consultar precio';
+    }
 
     echo '
-            </div>
+    <div class="card" style="width: 18rem; margin: 15px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <img src="imagenes/' . $fila['imagen'] . '" class="card-img-top" alt="Habitación" style="border-top-left-radius: 10px; border-top-right-radius: 10px; height: 180px; object-fit: cover;">
+        
+        <div class="card-body">
+            <h5 class="card-title">Habitación ' . $fila['tipo_nombre'] . '</h5>
+            <p class="card-text">' . $fila['descripcion'] . '</p>
+            <p><strong>Incluye:</strong></p>
+            <ul style="padding-left: 20px;">
+                <li><strong>Piso:</strong> ' . $fila['piso'] . '</li>
+                <li><strong>Número:</strong> ' . $fila['numero'] . '</li>
+                <li><strong>Superficie:</strong> ' . $fila['superficie'] . ' m²</li>
+                <li><strong>N° Camas:</strong> ' . $fila['nrocamas'] . '</li>
+            </ul>
+        </div>
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Precio:</strong> ' . $precio . '</li>
+        </ul>
+
+        <div class="card-body">';
+        
+        if (isset($_SESSION['id_usuario'])) {
+            echo '<a href="#" onclick="abrirModalReserva(' . $fila['id_habitacion'] . ')" class="card-link">Reservar</a>';
+        } else {
+            echo '<a href="#" onclick="abrirModal(\'login.html\')" class="card-link">Iniciar sesión para reservar</a>';
+        }
+
+    echo '
         </div>
     </div>';
 }
+
+echo '</div>'; 
+
+
+
     } else {
         echo "<p>No se encontraron habitaciones disponibles del tipo '$tipo'.</p>";
     }
