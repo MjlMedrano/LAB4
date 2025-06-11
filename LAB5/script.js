@@ -120,9 +120,10 @@ function UEditar() {
 
 /*funciones de la CRUD HABITACIONES */
 
-document.querySelector(".close").addEventListener("click", function() {
+function cerrarModal() {
+    console.log("Cerrar modal");
     document.getElementById("myModal").style.display = "none";
-});
+}
 
 function mostrarTabla() {
    var tabla = document.getElementById("tabla");
@@ -197,6 +198,19 @@ function Hactualizar() {
     });
 }
 
+function mostrarVistaPrevia() {
+            let selectImagen = document.getElementById('imagen');
+            let vistaPrevia = document.getElementById('vistaPrevia');
+
+            let imagenSeleccionada = selectImagen.options[selectImagen.selectedIndex].text;
+
+            if (imagenSeleccionada) {
+                vistaPrevia.src = 'imagenes/' + imagenSeleccionada;
+                vistaPrevia.style.display = 'block';
+            } else {
+                vistaPrevia.style.display = 'none';
+            }
+}
 // --------------------------------------------------------------------
 
 function abrirModal(contenido) {

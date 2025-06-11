@@ -6,7 +6,7 @@
     <title>Document</title>
     <script src="script.js"></script>
     
-    <link rel="stylesheet" href="css/pagina.css">
+    <link rel="stylesheet" href="pagina.css">
 </head>
 <body>
     <?php

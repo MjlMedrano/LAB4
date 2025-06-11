@@ -1,31 +1,33 @@
 <?php
-session_start();
 include('conexion.php');
-
-$id = $_GET['id'];
-$sql = "SELECT * FROM habitaciones WHERE id = $id";
-$result = $con->query($sql);
-
 $sqlTipos = "SELECT id, nombre FROM tipohabitacion";
 $sqlTiposImagenes = "SELECT id, imagen FROM imageneshabitaciones";
 $resultTipos = $con->query($sqlTipos);
 $resultTiposImagenes = $con->query($sqlTiposImagenes);
 
-$fila = $result->fetch_assoc();
-?>  
-    <form id="formulario"  onsubmit="Hactualizar();" method="post">
-        <input type="hidden" id="id" name="id" value="<?php echo $fila['id']; ?>">
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+   
+    <form id="formulario"  onsubmit="Hinsertar();" method="post">
         <label for="descripcion">Descripcion</label>
         <input type="text" id="descripcion" name="descripcion"><br>
-        <label for="numero">Numero</label>
-        <input type="number" id="numero" name="numero" value="<?php echo $fila['numero']; ?>"><br>
-        <label for="piso">Piso</label>
-        <input type="number" id="piso" name="piso" value="<?php echo $fila['piso']; ?>"><br>
+        <label for="numero">Numero:</label>
+        <input type="number" id="numero" name="numero"><br>
+        <label for="piso">Piso:</label>
+        <input type="number" id="piso" name="piso"><br>
         <label for="estado">Estado</label>
-        <select id="estado" name="estado">
-            <option value="0" <?php echo ($fila['estado'] == 0) ? 'selected' : ''; ?>>Ocupado</option>
-            <option value="1" <?php echo ($fila['estado'] == 1) ? 'selected' : ''; ?>>Libre</option>
-        </select><br>
+        <input type="text" id="estado" name="estado"><br>
         <label for="tipoHabitacion">Tipo de habitacion:</label>
         <select id="tipoHabitacion" name="tipoHabitacion" required>
             <?php while ($fila = $resultTipos->fetch_assoc()) { ?>
@@ -42,6 +44,8 @@ $fila = $result->fetch_assoc();
         <div>
            <img id="vistaPrevia" style="width: 100px; height: 100px; display: none;">
         </div>
-        <input type="submit" value="Actualizar">
+        <input type="submit" value="Enviar">
     </form>
 
+</body>
+</html>
