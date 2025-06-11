@@ -118,131 +118,350 @@ table tr:hover {
   background-color: #fafafa;
 }
 
-/* Estilos mejorados para centrado absoluto (núcleo 3x3) */
+/* Estilos para los modales - Agregar al final de styles.css */
+
+/* Estilos base para todos los modales */
 .modal {
     display: none;
     position: fixed;
-    top: 0;
+    z-index: 1000;
     left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    animation: fadeIn 0.3s ease-in-out;
 }
 
+/* Contenido del modal */
 .modal-content {
-    background-color: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background-color: #ffffff;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 12px;
     width: 90%;
-    max-width: 450px;
-    
-    /* Centrado absoluto */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
-    /* Animación suave al aparecer */
-    animation: modalAppear 0.3s ease-out;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: slideIn 0.3s ease-out;
 }
 
-@keyframes modalAppear {
-    from {
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { 
+        transform: translateY(-50px);
         opacity: 0;
-        transform: translate(-50%, -60%);
     }
-    to {
+    to { 
+        transform: translateY(0);
         opacity: 1;
-        transform: translate(-50%, -50%);
     }
 }
 
-/* Estilos específicos para el modal de reserva */
-#modal-reserva .modal-content {
-    max-width: 420px;
-}
-
-#modal-reserva h2 {
-    margin: 0 0 20px 0;
-    color: #2d3748;
-    text-align: center;
-    font-size: 1.5rem;
+/* Títulos de los modales */
+.modal-content h2 {
+    color: #374151;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 2px solid #e5e7eb;
 }
 
-#modal-reserva .form-group {
-    margin-bottom: 15px;
+/* Contenido de mensajes en modales */
+.modal-content #mensajeModalCreate,
+.modal-content #mensajeModalUpdate,
+.modal-content #mensajeModalDelete,
+.modal-content #modal-body {
+    margin-bottom: 20px;
+    line-height: 1.6;
+    color: #4b5563;
 }
 
-#modal-reserva label {
-    display: block;
-    margin-bottom: 5px;
+/* Botones dentro de los modales */
+.modal-content button {
+    background-color: #475569;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
     font-weight: 500;
-    color: #4a5568;
+    transition: background-color 0.2s ease;
+    margin: 5px;
 }
 
-#modal-reserva input[type="date"] {
+.modal-content button:hover {
+    background-color: #334155;
+}
+
+/* Botón de cerrar específico */
+.modal-content button[onclick*="cerrarModal"] {
+    background-color: #6b7280;
+}
+
+.modal-content button[onclick*="cerrarModal"]:hover {
+    background-color: #4b5563;
+}
+
+/* Botón de eliminar (para modal delete) */
+#myModalDelete .modal-content button:not([onclick*="cerrarModal"]) {
+    background-color: #dc2626;
+}
+
+#myModalDelete .modal-content button:not([onclick*="cerrarModal"]):hover {
+    background-color: #b91c1c;
+}
+
+/* Inputs dentro de los modales */
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid #cbd5e0;
+    border: 1px solid #cbd5e1;
     border-radius: 6px;
-    font-size: 0.95rem;
-    transition: border-color 0.2s;
+    font-size: 14px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
 }
 
-#modal-reserva input[type="date"]:focus {
+.modal-content input:focus,
+.modal-content select:focus,
+.modal-content textarea:focus {
     outline: none;
-    border-color: #4299e1;
-    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+    border-color: #475569;
+    box-shadow: 0 0 0 3px rgba(71, 85, 105, 0.1);
 }
 
-.detalles-habitacion {
-    background-color: #f8fafc;
-    padding: 15px;
-    border-radius: 6px;
-    margin: 20px 0;
-    border-left: 4px solid #4299e1;
+/* Labels en modales */
+.modal-content label {
+    display: block;
+    margin-bottom: 5px;
+    color: #374151;
+    font-weight: 500;
+    font-size: 14px;
 }
 
-.detalles-habitacion p {
-    margin: 8px 0;
-    color: #4a5568;
-}
-
-.botones {
+/* Contenedor de botones */
+.modal-content .button-container {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-    margin-top: 25px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e5e7eb;
 }
 
-#modal-reserva button {
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
+/* Modal de resultado específico */
+#modalResultado {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
 }
 
-#modal-reserva button[type="button"] {
-    background-color: #e2e8f0;
-    color: #4a5568;
-    border: none;
+#modalResultado > div {
+    background-color: #ffffff;
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+    margin: 15% auto;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s ease-out;
 }
 
-#modal-reserva button[type="button"]:hover {
-    background-color: #cbd5e0;
+#modalResultado p {
+    color: #374151;
+    font-size: 16px;
+    margin-bottom: 20px;
+    line-height: 1.5;
 }
 
-#modal-reserva button[type="submit"] {
-    background-color: #4299e1;
+#modalResultado button {
+    background-color: #475569;
     color: white;
     border: none;
+    padding: 10px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
 }
 
-#modal-reserva button[type="submit"]:hover {
-    background-color: #3182ce;
+#modalResultado button:hover {
+    background-color: #334155;
+}
+
+/* Responsive design para modales */
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 10% auto;
+        width: 95%;
+        padding: 20px;
+    }
+    
+    #modalResultado > div {
+        width: 95%;
+        margin: 20% auto;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        margin: 5% auto;
+        width: 98%;
+        padding: 15px;
+    }
+    
+    .modal-content h2 {
+        font-size: 18px;
+    }
+    
+    .modal-content .button-container {
+        flex-direction: column;
+    }
+    
+    .modal-content button {
+        width: 100%;
+        margin: 2px 0;
+    }
+}
+
+/* Efecto de cierre */
+.modal.closing {
+    animation: fadeOut 0.3s ease-in-out;
+}
+
+.modal.closing .modal-content {
+    animation: slideOut 0.3s ease-in;
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes slideOut {
+    from { 
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to { 
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+}
+
+/* Estilos para el botón de cerrar (X) del modal */
+.modal-content .close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 18px; /* Tamaño más pequeño */
+    font-weight: 300; /* Más delgado */
+    color: #6b7280;
+    cursor: pointer;
+    padding: 5px;
+    line-height: 1;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    z-index: 1001;
+}
+
+.modal-content .close:hover {
+    background-color: #f3f4f6;
+    color: #374151;
+    transform: scale(1.1);
+}
+
+.modal-content .close:active {
+    transform: scale(0.95);
+}
+
+/* Asegurar que el modal-content tenga posición relativa */
+.modal-content {
+    position: relative;
+    background-color: #ffffff;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Alternativa: Si prefieres una X aún más pequeña y minimalista */
+.modal-content .close.small {
+    font-size: 14px;
+    width: 20px;
+    height: 20px;
+    top: 12px;
+    right: 15px;
+}
+
+/* Alternativa: Estilo con ícono más moderno */
+.modal-content .close.modern {
+    font-size: 16px;
+    color: #9ca3af;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    width: 24px;
+    height: 24px;
+}
+
+.modal-content .close.modern:hover {
+    background-color: #ef4444;
+    color: white;
+    border-color: #ef4444;
+}
+
+/* Para móviles - hacer la X un poco más grande para mejor usabilidad */
+@media (max-width: 768px) {
+    .modal-content .close {
+        font-size: 20px;
+        width: 28px;
+        height: 28px;
+        top: 10px;
+        right: 15px;
+    }
+    
+    .modal-content .close.small {
+        font-size: 16px;
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* Ajustar el padding del contenido para dar espacio a la X */
+.modal-content h2 {
+    padding-right: 40px; /* Espacio para la X */
+    color: #374151;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e5e7eb;
 }
