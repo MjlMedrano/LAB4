@@ -1,0 +1,174 @@
+/* --------------------------------------------------
+   Variables de color y tipografía
+-------------------------------------------------- */
+:root {
+  --primary: #54aedb;
+  --primary-hover: #4396c1;
+  --secondary: #b99797;
+  --bg-light: #f4f4f4;
+  --bg-white: #ffffff;
+  --text-dark: #333333;
+  --text-light: #ffffff;
+}
+
+/* --------------------------------------------------
+   Reset básico y configuración global
+-------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
+
+/* --------------------------------------------------
+   Encabezados y secciones (opcional)
+-------------------------------------------------- */
+.header {
+  background-color: var(--secondary);
+  color: var(--text-light);
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* --------------------------------------------------
+   Botones
+-------------------------------------------------- */
+button,
+input[type="submit"] {
+  background-color: var(--primary);
+  color: var(--text-light);
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+}
+button:hover,
+input[type="submit"]:hover {
+  background-color: var(--primary-hover);
+}
+button.cancelar {
+  background-color: #aaaaaa;
+}
+button.cancelar:hover {
+  background-color: #888888;
+}
+
+/* --------------------------------------------------
+   Formularios, inputs, selects y textareas
+-------------------------------------------------- */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 15px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+/* --------------------------------------------------
+   Tablas (si aplica)
+-------------------------------------------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+table th,
+table td {
+  padding: 10px;
+  border: 1px solid #dddddd;
+  text-align: left;
+}
+table th {
+  background-color: var(--bg-light);
+}
+
+table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* --------------------------------------------------
+   Modales
+-------------------------------------------------- */
+.modal,
+#modalResultado {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content,
+.modal-contenido {
+  background-color: var(--bg-white);
+  padding: 20px;
+  border: 1px solid #888888;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #aaaaaa;
+  cursor: pointer;
+}
+.close:hover {
+  color: black;
+}
+
+/* Centrar texto en formularios */
+.text-center {
+  text-align: center;
+}
+/* --------------------------------------------------
+   Forzar centramiento de modales aunque usen display:block
+-------------------------------------------------- */
+.modal, 
+#modalResultado {
+  display: block;               /* para que el contenedor cubra toda la pantalla */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 1000;
+}
+
+/* Centrar el contenido dentro del contenedor */
+.modal-content,
+.modal-contenido {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;                   /* elimina márgenes automáticos */
+}
+
