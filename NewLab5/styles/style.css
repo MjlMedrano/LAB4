@@ -1,0 +1,119 @@
+/* Estilos generales para la barra de navegación */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    background-color: #f7fafc;
+}
+.navbar {
+    background-color: #ffffff;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid #e5e7eb;
+    font-family: Arial;
+}
+
+/* Logo del hotel */
+.navbar-logo h2 a {
+    font-size: 24px;
+    font-weight: 600;
+    color: #374151;
+    text-decoration: none;
+}
+
+/* Formulario de búsqueda */
+.navbar-busqueda form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f1f5f9;
+    padding: 10px 20px;
+    border-radius: 12px;
+}
+
+/* Estilos del select */
+.navbar-busqueda select {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    background-color: white;
+}
+
+/* Botón de buscar */
+.navbar-busqueda button {
+    padding: 8px 16px;
+    background-color: #475569;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.navbar-busqueda button:hover {
+    background-color: #334155;
+}
+
+/* Contenedor de enlaces y sesión */
+.navbar-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    font-size: 14px;
+}
+
+/* Enlaces de navegación */
+.navbar-botones a,
+.navbar-sesion a {
+    font-size: 12px;
+    text-decoration: none;
+    color: #1f2937;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin: 2px;
+    
+}
+
+.navbar-botones a:hover,
+.navbar-sesion a:hover {
+    color: #0f172a;
+    cursor: pointer;
+    background-color: #edf2f7;
+}
+
+#contenido {
+    
+    margin: 15px 80px;
+    padding: 24px 20px;  
+    background-color: white ;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+   
+
+
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+table th,
+table td {
+  padding: 10px;
+  border: 1px solid #dddddd;
+  text-align: left;
+}
+table th {
+  background-color: #f4f4f4;
+}
+
+table tr:hover {
+  background-color: #fafafa;
+}
