@@ -120,7 +120,7 @@ function UEditar() {
 
 /*funciones de la CRUD HABITACIONES */
 
-function cerrarModal() {
+function cerrarModalH() {
     console.log("Cerrar modal");
     document.getElementById("myModal").style.display = "none";
 }
@@ -162,7 +162,7 @@ function confirmarEliminacion(id) {
     document.querySelector("#contenido-modal").innerHTML = `
         <p>¿Estás seguro de que quieres eliminar este elemento?</p>
         <button onclick="eliminar(${id})">Sí, eliminar</button>
-        <button onclick="cerrarModal()">Cancelar</button>
+        <button onclick="cerrarModalH()">Cancelar</button>
     `;
     document.getElementById("myModal").style.display = "block";
 }
@@ -211,6 +211,7 @@ function mostrarVistaPrevia() {
                 vistaPrevia.style.display = 'none';
             }
 }
+
 // --------------------------------------------------------------------
 
 function abrirModal(contenido) {
