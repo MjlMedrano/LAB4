@@ -44,10 +44,17 @@
         <!-- Botones de navegación -->
         <div class="navbar-botones" style="display: flex; gap: 10px;">
             <a href="javascript:cargarContenido('inicio.html')">Inicio</a>
-            <?php if (isset($_SESSION['id_usuario']) && $_SESSION['nivel'] == 0): ?>
+
+            
+        <?php if (isset($_SESSION['id_usuario'])): ?>
+            <a href="javascript:cargarContenido('misReservas.php')">Mis reservas</a>
+
+            <?php if ($_SESSION['nivel'] == 0): ?>
                 <a class="menu" href="javascript:cargarContenido('Uread.php')">Gestion Usuarios</a>
                 <a class="menu" href="javascript:cargarContenido('Habitaciones.html')">Gestion Habitaciones</a>
             <?php endif; ?>
+        <?php endif; ?>
+
         </div>
 
         <!-- Sesion -->

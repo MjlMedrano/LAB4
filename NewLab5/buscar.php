@@ -62,7 +62,7 @@ if (isset($_POST['tipo'])) {
     </div>';
 }
     } else {
-        echo "<p>No se encontraron habitaciones del tipo '$tipo'.</p>";
+        echo "<p>No se encontraron habitaciones disponibles del tipo '$tipo'.</p>";
     }
 
     $stmt->close();

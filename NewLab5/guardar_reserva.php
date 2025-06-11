@@ -8,7 +8,7 @@ $fecha_ingreso = $_POST['fecha_ingreso'];
 $fecha_salida = $_POST['fecha_salida'];
 
 $sql = "INSERT INTO reservas (id_usuarios, id_habitaciones, fecha_ingreso, fecha_salida, estado) 
-        VALUES (?, ?, ?, ?, 'pendiente')";
+        VALUES (?, ?, ?, ?, 'activo')";
 $stmt = $con->prepare($sql);
 $stmt->bind_param("iiss", $id_usuario, $id_habitacion, $fecha_ingreso, $fecha_salida);
 
@@ -26,7 +26,7 @@ if ($stmt->execute()) {
     </div>';
 } else {
     echo '
-    <div style="text-align: center; color: red;">
+    <div>
         <h3>Error</h3>
         <p>No se pudo completar la reserva. Intenta más tarde.</p>
         <button onclick="cerrarModal(event, \'modal-global\')">Cerrar</button>

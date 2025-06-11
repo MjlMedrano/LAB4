@@ -239,23 +239,23 @@ function abrirModalReserva(idHabitacion) {
 }
 
 function seleccionarYBuscar(tipo, event) {
-    event.preventDefault(); // Evita el salto del enlace
+    event.preventDefault(); 
 
     const select = document.getElementById("tipo");
     select.value = tipo;
 
-    // Crear un evento ficticio de 'submit' y reutilizar buscarHabitaciones
+   
     buscarHabitaciones(new Event("submit"));
 }
 
 
 
 function buscarHabitaciones(event) {
-    event.preventDefault(); // Evita el envío tradicional del formulario
+    event.preventDefault(); 
 
     const tipo = document.getElementById("tipo").value;
 
-    // Validación rápida
+  
     if (!tipo) {
         alert("Por favor, selecciona un tipo de habitación.");
         return;
@@ -299,7 +299,7 @@ function confirmarReserva(event, idHabitacion) {
     })
     .then(res => res.text())
     .then(html => {
-        // Mostrar mensaje en el mismo modal
+      
         document.getElementById("modal-body").innerHTML = html;
     })
     .catch(error => {
@@ -313,3 +313,70 @@ function confirmarReserva(event, idHabitacion) {
     });
 }
 
+function editarReserva(id) {
+    abrirModal(`editar_reserva.php?id=${id}`);
+}
+
+
+
+
+function cancelarReserva(idReserva, idHabitacion) {
+    const datos = new FormData();
+    datos.append("id_reserva", idReserva);
+    datos.append("id_habitacion", idHabitacion);
+
+    fetch("eliminar_reserva.php", {
+        method: "POST",
+        body: datos
+    })
+    .then(res => res.text())
+    .then(html => {
+        document.getElementById("modal-global").style.display = "block";
+        document.getElementById("modal-body").innerHTML = html;
+
+        setTimeout(() => {
+            cerrarModal(new Event("click"), "modal-global");
+            cargarContenido("misReservas.php");
+        }, 2000);
+    });
+}
+
+
+
+function guardarCambiosReserva(event, idReserva) {
+    event.preventDefault();
+    const form = event.target;
+
+    const datos = new FormData(form);
+    datos.append("id_reserva", idReserva);
+
+    fetch("Qeditar_reserva.php", {
+        method: "POST",
+        body: datos
+    })
+    .then(res => res.text())
+    .then(html => {
+        document.getElementById("modal-body").innerHTML = html;
+    });
+}
+
+
+function eliminarReserva(event, idReserva) {
+    event.preventDefault();
+
+    const datos = new FormData();
+    datos.append("id_reserva", idReserva);
+
+    fetch("eliminar_reserva.php", {
+        method: "POST",
+        body: datos
+    })
+    .then(res => res.text())
+    .then(html => {
+        document.getElementById("modal-body").innerHTML = html;
+        setTimeout(() => {
+            cargarContenido('misReservas.php');
+            cerrarModal(new Event("click"), "modal-global");
+        }, 2000);
+    });
+}
