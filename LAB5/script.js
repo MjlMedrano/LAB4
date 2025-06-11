@@ -135,7 +135,7 @@ function mostrarTabla() {
 }
 
 function formCrear() {
-   fetch("Hform.html")
+   fetch("Hform.php")
        .then((response) => response.text())
        .then((data) => {
             document.querySelector("#titulo-modal").innerHTML = "Crear"
